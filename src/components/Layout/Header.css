@@ -10,13 +10,9 @@
   top: 0;
   z-index: 100;
 }
+
 body {
   overflow-x: hidden;
-}
-
-.nav-active {
-  max-height: 100vh;
-  overflow-y: auto;
 }
 
 /* Logo */
@@ -89,8 +85,9 @@ body {
   transform: scale(1.05);
 }
 
-/* Profile Dropdown Menu */
-.profile-section {
+/* Profile Dropdown */
+.profile-section,
+.mobile-profile {
   position: relative;
   display: flex;
   align-items: center;
@@ -136,7 +133,6 @@ body {
   padding: 10px 14px;
   font-size: 15px;
   color: #333;
-  text-align: left;
   transition: background-color 0.2s;
 }
 
@@ -149,6 +145,7 @@ body {
   font-weight: 600;
 }
 
+/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -160,7 +157,7 @@ body {
   }
 }
 
-/* Hamburger Icon */
+/* Hamburger */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -169,7 +166,11 @@ body {
 
 /* Mobile Styles */
 .mobile-auth {
-  display: none; /* hide mobile version by default */
+  display: none;
+}
+
+.mobile-profile {
+  display: none;
 }
 
 @media (max-width: 992px) {
@@ -207,19 +208,98 @@ body {
     display: block;
   }
 
- .mobile-auth {
+  /* ✅ Show profile on left of hamburger */
+  .mobile-profile {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    position: relative;
+  }
+
+  .mobile-profile .profile-menu {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    z-index: 200;
+  }
+
+  .mobile-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-auth button {
+    padding: 8px 20px;
+    width: auto;
+    text-align: center;
+    align-self: flex-start;
+  }
+}
+
+/* Container for profile + hamburger on mobile */
+.header-right {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* keep buttons aligned neatly */
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
 }
 
-.mobile-auth button {
-  width: auto;            /* ✅ only as wide as text */
-  padding: 8px 20px;      /* spacing around text */
-  text-align: center;
-  align-self: flex-start;  /* ensures button doesn’t stretch */
+/* Adjust mobile layout */
+@media (max-width: 992px) {
+  .header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mobile-profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
 
+/* ✅ Container for mobile avatar + hamburger */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
+/* ✅ Mobile layout adjustments */
+@media (max-width: 992px) {
+  .header {
+    padding: 12px 24px;
+  }
+
+  .header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mobile-profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .auth-buttons {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
