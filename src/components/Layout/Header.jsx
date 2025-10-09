@@ -10,20 +10,22 @@ function Header() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const navigate = useNavigate();
 
-  const firstLetter = user?.name ? user.name.charAt(0).toUpperCase() : "";
+  const firstLetter =
+    user?.firstName?.charAt(0).toUpperCase() ||
+    user?.name?.charAt(0).toUpperCase() ||
+    "";
 
   const handleProfileClick = () => {
     setShowMenu(false);
     navigate("/profile");
   };
 
-  // Close mobile menu when navigating
-  const handleNavClick = () => setMobileMenu(false);
-
-  // Close dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!e.target.closest(".profile-section") && !e.target.closest(".mobile-profile")) {
+      if (
+        !e.target.closest(".profile-section") &&
+        !e.target.closest(".mobile-profile")
+      ) {
         setShowMenu(false);
       }
     };
@@ -32,32 +34,43 @@ function Header() {
   }, []);
 
   return (
-    <header className="header">
-      {/* Logo */}
+    <header className="header fixed-header">
+      {/* ✅ Logo */}
       <div className="logo">BBMK</div>
 
-      {/* Navigation Links */}
+      {/* ✅ Navigation Links */}
       <nav className={`nav ${mobileMenu ? "nav-active" : ""}`}>
-        <Link to="/" onClick={handleNavClick}>Home</Link>
-        <Link to="/about" onClick={handleNavClick}>About Us</Link>
-        <Link to="/courses" onClick={handleNavClick}>Courses</Link>
-        <Link to="/blog" onClick={handleNavClick}>Blog</Link>
-        <Link to="/contact" onClick={handleNavClick}>Contact</Link>
+        <Link to="/" onClick={() => setMobileMenu(false)}>
+          Home
+        </Link>
+        <Link to="/about" onClick={() => setMobileMenu(false)}>
+          About Us
+        </Link>
+        <Link to="/courses" onClick={() => setMobileMenu(false)}>
+          Courses
+        </Link>
+        <Link to="/blog" onClick={() => setMobileMenu(false)}>
+          Blog
+        </Link>
+        <Link to="/contact" onClick={() => setMobileMenu(false)}>
+          Contact
+        </Link>
 
+        {/* ✅ Auth buttons (Mobile Only) */}
         {!user && (
           <div className="mobile-auth">
-            <Link to="/login" onClick={handleNavClick}>
+            <Link to="/login" onClick={() => setMobileMenu(false)}>
               <button className="login-btn">Login</button>
             </Link>
-            <Link to="/register" onClick={handleNavClick}>
+            <Link to="/register" onClick={() => setMobileMenu(false)}>
               <button className="register-btn">Register</button>
             </Link>
           </div>
         )}
       </nav>
 
-      {/* Desktop Auth/Profile */}
-      <div className="auth-buttons">
+      {/* ✅ Desktop Profile / Auth */}
+      <div className="auth-buttons desktop-only">
         {!user ? (
           <>
             <Link to="/login">
@@ -68,11 +81,19 @@ function Header() {
             </Link>
           </>
         ) : (
-          <div
-            className="profile-section"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            <div className="profile-avatar">{firstLetter}</div>
+          <div className="profile-section" onClick={() => setShowMenu(!showMenu)}>
+            <div className="profile-avatar">
+              {user?.profilePhoto ? (
+                <img
+                  src={user.profilePhoto}
+                  alt="Profile"
+                  className="avatar-img"
+                  onError={(e) => (e.target.style.display = "none")}
+                />
+              ) : (
+                firstLetter
+              )}
+            </div>
 
             {showMenu && (
               <div className="profile-menu">
@@ -88,12 +109,24 @@ function Header() {
         )}
       </div>
 
-      {/* ✅ Mobile Profile + Hamburger (avatar to the LEFT of hamburger) */}
-      <div className="header-right">
+      {/* ✅ Mobile Header Right (Visible Only on Small Screens) */}
+      <div className="header-right mobile-only">
         {user && (
           <div className="mobile-profile">
-            <div className="profile-avatar" onClick={() => setShowMenu(!showMenu)}>
-              {firstLetter}
+            <div
+              className="profile-avatar"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              {user?.profilePhoto ? (
+                <img
+                  src={user.profilePhoto}
+                  alt="Profile"
+                  className="avatar-img"
+                  onError={(e) => (e.target.style.display = "none")}
+                />
+              ) : (
+                firstLetter
+              )}
             </div>
             {showMenu && (
               <div className="profile-menu">
@@ -108,7 +141,7 @@ function Header() {
           </div>
         )}
 
-        {/* Only one hamburger icon now */}
+        {/* ✅ Hamburger Toggle */}
         <div className="hamburger" onClick={() => setMobileMenu(!mobileMenu)}>
           {mobileMenu ? <X size={26} /> : <Menu size={26} />}
         </div>

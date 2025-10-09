@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/api";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
     email: "",
-    age: "",
+    gender: "",
     mobile: "",
+    dateOfBirth: "",
     address: "",
+    pinCode: "",
+    schoolName: "",
     password: "",
+    profilePhoto: null,
   });
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, files } = e.target;
+    if (files) setFormData({ ...formData, [name]: files[0] });
+    else setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -25,107 +34,76 @@ const RegisterPage = () => {
     setError("");
     setLoading(true);
 
-    console.log("Submitting form data:", formData);
-
-    // Optional frontend validation
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters.");
-      setLoading(false);
-      return;
-    }
-
     try {
-      const response = await registerUser(formData);
-      console.log("API Response:", response);
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => data.append(key, value));
 
-      const { token, response: user } = response.data;
+      const response = await registerUser(data);
+      console.log("✅ Registration response:", response);
 
-      if (!token || !user) {
-        setError("Invalid response from server.");
-        setLoading(false);
-        return;
-      }
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      localStorage.setItem("token", JSON.stringify(token));
-      localStorage.setItem("user", JSON.stringify(user));
-
-      console.log("Registration successful. Token & user saved.");
-      setLoading(false);
-      navigate("/login"); // Redirect to login
+      navigate("/login");
     } catch (err) {
+      console.error("Registration error:", err);
+      setError(err.response?.data?.error || "Something went wrong.");
+    } finally {
       setLoading(false);
-      console.error("Error during registration:", err);
-
-      if (err.response && err.response.data?.error) {
-        setError(err.response.data.error);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
     }
   };
 
   return (
-    <div style={containerStyle}>
-      <h2 style={{ textAlign: "center", marginBottom: "24px" }}>Register</h2>
+    <div className="register-container">
+      <div className="register-card">
+        <div className="register-left">
+          <h2>Create Your Account</h2>
+          <p>Join the BBMK Quiz Platform and start your learning journey today!</p>
+          {error && <div className="error-text">{error}</div>}
 
-      {error && <div style={errorStyle}>{error}</div>}
+          <form onSubmit={handleSubmit} className="register-form">
+            <div className="form-row">
+              <input name="firstName" placeholder="First Name" required onChange={handleChange} />
+              <input name="middleName" placeholder="Middle Name" onChange={handleChange} />
+            </div>
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {["name","email","age","mobile","address","password"].map((field) => (
-          <input
-            key={field}
-            type={field === "password" ? "password" : field === "age" ? "number" : "text"}
-            name={field}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-            value={formData[field]}
-            onChange={handleChange}
-            required
-            style={inputStyle}
+            <input name="lastName" placeholder="Last Name" required onChange={handleChange} />
+            <input name="email" type="email" placeholder="Email" required onChange={handleChange} />
+
+            <div className="gender-group">
+              {["Male", "Female", "Other"].map((g) => (
+                <label key={g}>
+                  <input type="radio" name="gender" value={g} required onChange={handleChange} /> {g}
+                </label>
+              ))}
+            </div>
+
+            <div className="form-row">
+              <input name="mobile" type="tel" placeholder="Mobile (10 digits)" required onChange={handleChange} />
+              <input name="dateOfBirth" type="date" required onChange={handleChange} />
+            </div>
+
+            <input name="address" placeholder="Address" required onChange={handleChange} />
+            <input name="pinCode" placeholder="PIN Code" required onChange={handleChange} />
+            <input name="schoolName" placeholder="School Name" required onChange={handleChange} />
+            <input name="password" type="password" placeholder="Password" required onChange={handleChange} />
+            <input name="profilePhoto" type="file" accept="image/*" onChange={handleChange} />
+
+            <button type="submit" disabled={loading} className="register-btn">
+              {loading ? "Registering..." : "Register"}
+            </button>
+          </form>
+        </div>
+
+        <div className="register-right">
+          <img
+            src="https://img.freepik.com/free-vector/online-registration-concept-illustration_114360-7865.jpg"
+            alt="Register Illustration"
           />
-        ))}
-
-        <button type="submit" disabled={loading} style={buttonStyle}>
-          {loading ? "Registering..." : "Register"}
-        </button>
-      </form>
+        </div>
+      </div>
     </div>
   );
-};
-
-// Styles
-const containerStyle = {
-  maxWidth: "500px",
-  margin: "50px auto",
-  padding: "24px",
-  border: "1px solid #e2e8f0",
-  borderRadius: "8px",
-  boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-};
-
-const inputStyle = {
-  padding: "10px",
-  borderRadius: "6px",
-  border: "1px solid #cbd5e0",
-  outline: "none",
-  fontSize: "16px",
-};
-
-const buttonStyle = {
-  padding: "12px",
-  borderRadius: "6px",
-  border: "none",
-  backgroundColor: "#2f855a",
-  color: "white",
-  fontWeight: "bold",
-  cursor: "pointer",
-  transition: "all 0.3s",
-};
-
-const errorStyle = {
-  color: "red",
-  textAlign: "center",
-  marginBottom: "16px",
-  fontWeight: "500",
 };
 
 export default RegisterPage;

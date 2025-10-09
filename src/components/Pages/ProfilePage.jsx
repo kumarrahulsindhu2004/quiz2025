@@ -13,15 +13,22 @@ const ProfilePage = () => {
     );
   }
 
+  // ✅ Handle both possible structures safely
+  const displayName =
+    user.firstName || user.name || "User";
+
   return (
     <div className="profile-container">
       <div className="profile-card">
         <div className="avatar-circle">
-          {user.name.charAt(0).toUpperCase()}
+          {displayName.charAt(0).toUpperCase()}
         </div>
-        <h2>{user.name}</h2>
-        <p>Email: {user.email}</p>
-        <p>User ID: {user._id}</p>
+        <h2>
+          {user.firstName} {user.middleName} {user.lastName}
+        </h2>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Mobile:</strong> {user.mobile}</p>
+        <p><strong>User ID:</strong> {user._id}</p>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "react-router-dom";
 
 // ✅ Base configuration
 const API = axios.create({
@@ -49,5 +50,5 @@ API.interceptors.response.use(
 // ✅ API endpoints
 export const loginUser = (data) => API.post("/user/login", data);
 export const registerUser = (data) => API.post("/user/register", data);
+export const profile=(data)=>API.post('/user/profile',data);
 
-export default API;
