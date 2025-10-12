@@ -12,7 +12,7 @@ function Home() {
           </h1>
 
           <p className="main-description">
-            Join the Binod Bihari Mahato Mission Quiz Competition! Challenge yourself, compete with peers, and skill up to reach new heights.
+            Join the Binod Bihari Mahato Mission - Talent Hunt  Quiz Competition! Challenge yourself, compete with peers, and skill up to reach new heights.
           </p>
 
           <div className="main-buttons">

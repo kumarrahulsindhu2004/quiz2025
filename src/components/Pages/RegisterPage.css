@@ -1,35 +1,44 @@
+/* ========== Register Page Layout ========== */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f7fafc;
+  background: linear-gradient(180deg, #f4f8ff, #ffffff);
   padding: 40px 20px;
 }
 
 .register-card {
   display: flex;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   overflow: hidden;
   max-width: 1000px;
   width: 100%;
+  transition: transform 0.3s ease;
 }
 
+.register-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ========== Left Section ========== */
 .register-left {
   flex: 1;
   padding: 40px;
 }
 
 .register-left h2 {
-  color: #2f855a;
-  font-size: 28px;
-  margin-bottom: 8px;
+  color: #002b80; 
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .register-left p {
-  color: #555;
+  color: #444;
+  font-size: 15px;
   margin-bottom: 20px;
 }
 
@@ -39,6 +48,7 @@
   text-align: center;
 }
 
+/* ========== Form Styling ========== */
 .register-form {
   display: flex;
   flex-direction: column;
@@ -48,83 +58,34 @@
 .form-row {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap; /* Wrap on smaller screens */
 }
 
-.register-form input {
+.register-form input,
+.register-select {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid #cbd5e0;
   border-radius: 8px;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
-.register-form input:focus {
-  border-color: #2f855a;
-  box-shadow: 0 0 4px rgba(47, 133, 90, 0.4);
+.register-form input:focus,
+.register-select:focus {
+  border-color: #0044cc;
+  box-shadow: 0 0 5px rgba(0, 68, 204, 0.3);
 }
 
-.gender-group {
-  display: flex;
-  gap: 16px;
-  color: #333;
-  font-weight: 500;
-}
-
-.register-btn {
-  background-color: #2f855a;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.register-btn:hover {
-  background-color: #276749;
-  transform: translateY(-2px);
-}
-
-.register-right {
-  flex: 1;
-  background: #f0fff4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-}
-
-.register-right img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .register-card {
-    flex-direction: column;
-  }
-
-  .register-right {
-    order: -1;
-    background: none;
-  }
-
-  .register-left {
-    padding: 24px;
-  }
-}
-/* --- Modern Circular Radio Buttons --- */
+/* ========== Gender Section ========== */
 .gender-group {
   display: flex;
   gap: 20px;
   align-items: center;
-  color: #2d3748;
+  color: #002b80;
   font-weight: 500;
   margin: 8px 0;
   flex-wrap: wrap;
@@ -140,34 +101,28 @@
   user-select: none;
 }
 
-/* Hide default style */
 .gender-group input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  border: 2px solid #2f855a;
-  border-radius: 50%; /* ✅ ensures perfect circle */
+  border: 2px solid #0044cc;
+  border-radius: 50%;
   background-color: #fff;
   transition: all 0.25s ease;
   cursor: pointer;
   position: relative;
-  display: inline-block;
-  vertical-align: middle;
 }
 
-/* Hover effect */
 .gender-group input[type="radio"]:hover {
-  box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 68, 204, 0.2);
 }
 
-/* Checked state */
 .gender-group input[type="radio"]:checked {
-  border-color: #2f855a;
-  background-color: #2f855a;
+  border-color: #0044cc;
+  background-color: #0044cc;
 }
 
-/* Inner white dot (for better look) */
 .gender-group input[type="radio"]::before {
   content: "";
   position: absolute;
@@ -181,10 +136,66 @@
   transition: transform 0.2s ease;
 }
 
-/* Show inner dot when selected */
 .gender-group input[type="radio"]:checked::before {
   transform: translate(-50%, -50%) scale(1);
-}/* --- Perfect mobile view fix for input field spacing --- */
+}
+
+/* ========== Submit Button ========== */
+.register-btn {
+  background-color: #f6ad55; 
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.register-btn:hover {
+  background-color: #ed8936;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(237, 137, 54, 0.3);
+}
+
+/* ========== Right Illustration Section ========== */
+.register-right {
+  flex: 1;
+  background: #eaf2ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.register-right img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 900px) {
+  .register-card {
+    flex-direction: column;
+  }
+
+  .register-right {
+    order: -1;
+    background: none;
+  }
+
+  .register-left {
+    padding: 24px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 600px) {
   .register-container {
     padding: 20px 10px;
@@ -200,29 +211,24 @@
     padding: 20px;
   }
 
-  .register-form {
-    width: 100%;
-  }
-
   .register-form input,
   .register-btn,
+  .register-select,
   .gender-group {
     width: 100%;
-    box-sizing: border-box; /* ✅ ensures padding doesn’t overflow */
+    box-sizing: border-box;
   }
 
   .form-row {
-    flex-direction: column; /* stack neatly */
+    flex-direction: column;
     gap: 12px;
   }
 
-  /* ✅ Add consistent padding inside the form for both sides */
   .register-form {
-    padding: 0 8px; 
+    padding: 0 8px;
   }
 
-  /* Optional: make the right illustration smaller */
   .register-right img {
-    max-width: 300px;
+    max-width: 280px;
   }
 }

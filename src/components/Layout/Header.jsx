@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Menu, X } from "lucide-react";
+import logo from "../../assets/logo-img.png";
 import "./Header.css";
 
 function Header() {
@@ -35,28 +36,22 @@ function Header() {
 
   return (
     <header className="header fixed-header">
-      {/* ✅ Logo */}
-      <div className="logo">BBMK</div>
+      {/* ✅ Logo + Title */}
+      <div className="header-left">
+        <img src={logo} alt="App Logo" className="logo-img" />
+        <div className="header-text">
+          <h1>Binod Bihari Mahato Mission - Talent Hunt (A.V.A)</h1>
+          <h2>Adarsh Vidya Ashram</h2>
+        </div>
+      </div>
 
       {/* ✅ Navigation Links */}
       <nav className={`nav ${mobileMenu ? "nav-active" : ""}`}>
-        <Link to="/" onClick={() => setMobileMenu(false)}>
-          Home
-        </Link>
-        <Link to="/about" onClick={() => setMobileMenu(false)}>
-          About Us
-        </Link>
-        <Link to="/courses" onClick={() => setMobileMenu(false)}>
-          Courses
-        </Link>
-        <Link to="/blog" onClick={() => setMobileMenu(false)}>
-          Blog
-        </Link>
-        <Link to="/contact" onClick={() => setMobileMenu(false)}>
-          Contact
-        </Link>
+        <Link to="/" onClick={() => setMobileMenu(false)}>Home</Link>
+        <Link to="/about" onClick={() => setMobileMenu(false)}>About</Link>
+        <Link to="/download" onClick={() => setMobileMenu(false)}>Download Admit Card</Link>
+        <Link to="/result" onClick={() => setMobileMenu(false)}>Result</Link>
 
-        {/* ✅ Auth buttons (Mobile Only) */}
         {!user && (
           <div className="mobile-auth">
             <Link to="/login" onClick={() => setMobileMenu(false)}>
@@ -69,7 +64,7 @@ function Header() {
         )}
       </nav>
 
-      {/* ✅ Desktop Profile / Auth */}
+      {/* ✅ Desktop Right Section */}
       <div className="auth-buttons desktop-only">
         {!user ? (
           <>
@@ -81,7 +76,10 @@ function Header() {
             </Link>
           </>
         ) : (
-          <div className="profile-section" onClick={() => setShowMenu(!showMenu)}>
+          <div
+            className="profile-section"
+            onClick={() => setShowMenu(!showMenu)}
+          >
             <div className="profile-avatar">
               {user?.profilePhoto ? (
                 <img
@@ -109,7 +107,7 @@ function Header() {
         )}
       </div>
 
-      {/* ✅ Mobile Header Right (Visible Only on Small Screens) */}
+      {/* ✅ Mobile Header Right */}
       <div className="header-right mobile-only">
         {user && (
           <div className="mobile-profile">

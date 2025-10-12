@@ -1,4 +1,4 @@
-/* Main layout */
+/* ========== MAIN LAYOUT ========== */
 .home-container {
   width: 100%;
   overflow-x: hidden;
@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 80px 48px;
-  background: linear-gradient(90deg, #fffaf0, #f0fff4);
+  background: linear-gradient(90deg, #ffffff, #eaf2ff); /* white to light blue */
   gap: 40px;
 }
 
@@ -26,30 +26,31 @@
   text-align: center;
 }
 
-/* Text styling */
+/* ========== TEXT STYLING ========== */
 .main-title {
   font-size: 52px;
-  font-weight: 700;
-  color: #276749;
+  font-weight: 800;
+  color: #002b80; /* Deep blue */
   margin-bottom: 20px;
   line-height: 1.2;
 }
 
 .highlight {
-  background-color: #f6ad55;
-  color: white;
+  background-color: #ffcc00; /* Yellow highlight */
+  color: #002b80;
   padding: 0 10px;
   border-radius: 6px;
 }
 
 .main-description {
   font-size: 18px;
-  color: #4a5568;
+  color: #333;
   margin-bottom: 30px;
-  max-width: 500px;
+  max-width: 520px;
+  line-height: 1.6;
 }
 
-/* Buttons */
+/* ========== BUTTONS ========== */
 .main-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -59,36 +60,38 @@
 
 .main-buttons button {
   padding: 14px 28px;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
   border: none;
   transition: all 0.3s ease;
 }
 
+/* Primary (Get Started) */
 .get-started-btn {
-  background-color: #2f855a;
-  color: white;
+  background-color: #002b80;
+  color: #ffffff;
 }
 
 .get-started-btn:hover {
-  background-color: #276749;
+  background-color: #0044cc;
   transform: scale(1.05);
 }
 
+/* Secondary (Watch Video / Learn More) */
 .video-btn {
-  background-color: white;
-  color: #ed8936;
-  border: 2px solid #ed8936;
+  background-color: #ffffff;
+  color: #002b80;
+  border: 2px solid #002b80;
 }
 
 .video-btn:hover {
-  background-color: #ed8936;
-  color: white;
+  background-color: #002b80;
+  color: #ffffff;
   transform: scale(1.05);
 }
 
-/* Student section */
+/* ========== STUDENT SECTION ========== */
 .students {
   display: flex;
   align-items: center;
@@ -101,36 +104,31 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .students span {
-  color: #4a5568;
+  color: #002b80;
   font-size: 14px;
   font-weight: 500;
 }
 
-/* Image */
+/* ========== IMAGE ========== */
 .main-right img {
   max-width: 100%;
   height: auto;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  animation: floatUpDown 3s ease-in-out infinite;
 }
 
-/* ------------------ Responsive ------------------ */
-
-/* Tablet */
+/* ========== RESPONSIVE DESIGN ========== */
 @media (max-width: 992px) {
   .main-section {
     flex-direction: column-reverse;
     text-align: center;
     padding: 60px 32px;
-  }
-
-  .main-left {
-    max-width: 100%;
   }
 
   .main-title {
@@ -157,106 +155,47 @@
   }
 }
 
-
-
-/* Responsive for Mobile (≤768px) */
-/* Mobile (≤768px) */
+/* ========== MOBILE VIEW (≤768px) ========== */
 @media (max-width: 768px) {
   .main-section {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 12px;
-    gap: 8px;
-  }
-
-  .main-left {
-    flex: 1;
-    text-align: left;
-    margin: 0;       /* ✅ removes any margin */
-    padding: 0;      /* ✅ removes any padding */
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 32px 16px;
   }
 
   .main-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #276749;
-    line-height: 1.3;
-    margin: 0 0 8px 0;  /* ✅ only small bottom margin */
-    padding: 0;         /* ✅ remove extra spacing */
-  }
-
-  .highlight {
-    background-color: #f6ad55;
-    color: white;
-    padding: 0 6px;
-    border-radius: 4px;
+    font-size: 26px;
+    color: #002b80;
+    margin-bottom: 10px;
   }
 
   .main-description {
-    font-size: 13px;
-    color: #4a5568;
-    line-height: 1.5;
-    margin: 0;         /* ✅ removes top and bottom margin */
-    padding: 0;        /* ✅ removes left padding */
-    max-width: 95%;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
   }
 
   .main-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 14px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
   .main-buttons button {
-    padding: 10px 16px;
+    width: 80%;
+    padding: 12px;
     font-size: 14px;
-    border-radius: 6px;
-  }
-
-  .students {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-  }
-
-  .students img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    margin-right: 5px;
-  }
-
-  .students span {
-    font-size: 12px;
-  }
-
-  .main-right {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .main-right img {
     width: 85%;
-    max-width: 180px;
-    border-radius: 12px;
-    animation: floatUpDown 3s ease-in-out infinite;
+    max-width: 220px;
   }
 }
 
 /* Floating animation */
 @keyframes floatUpDown {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }

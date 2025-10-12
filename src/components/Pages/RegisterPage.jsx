@@ -16,6 +16,7 @@ const RegisterPage = () => {
     address: "",
     pinCode: "",
     schoolName: "",
+    studentClass: "", // New field
     password: "",
     profilePhoto: null,
   });
@@ -86,6 +87,19 @@ const RegisterPage = () => {
             <input name="address" placeholder="Address" required onChange={handleChange} />
             <input name="pinCode" placeholder="PIN Code" required onChange={handleChange} />
             <input name="schoolName" placeholder="School Name" required onChange={handleChange} />
+            <select
+  name="studentClass"
+  value={formData.studentClass}
+  required
+  onChange={handleChange}
+  className="register-select"
+>
+  <option value="" disabled>Select Class</option>
+  {["6th", "7th", "8th", "9th", "10th", "11th", "12th"].map((cls) => (
+    <option key={cls} value={cls}>{cls}</option>
+  ))}
+</select>
+
             <input name="password" type="password" placeholder="Password" required onChange={handleChange} />
             <input name="profilePhoto" type="file" accept="image/*" onChange={handleChange} />
 
